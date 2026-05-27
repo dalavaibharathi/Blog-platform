@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Register</title></head>
+<body style="font-family: sans-serif; max-width: 400px; margin: 100px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
+    <h2>Create Account</h2>
+    <form action="/register" method="POST">
+        <input type="text" name="username" placeholder="Username" required style="width:100%; padding:10px; margin-bottom:10px; box-sizing: border-box;"><br>
+        <input type="password" name="password" placeholder="Password" required style="width:100%; padding:10px; margin-bottom:10px; box-sizing: border-box;"><br>
+        <button type="submit" style="background:#0052cc; color:white; border:none; padding:10px 20px; cursor:pointer; width:100%;">Register</button>
+    </form>
+    <p>Already have an account? <a href="/login">Login here</a></p>
+</body>
+</html>

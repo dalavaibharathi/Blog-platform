@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head><title>Dashboard</title></head>
+<body style="font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 20px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2>Welcome, <%= username %>!</h2>
+        <a href="/logout" style="color:red; text-decoration:none;">Logout</a>
+    </div>
+    <hr>
+    
+    <h3>Create a New Blog Post</h3>
+    <form action="/posts" method="POST" enctype="multipart/form-data" style="margin-bottom: 40px;">
+        <input type="text" name="title" placeholder="Post Title" required style="width:100%; padding:10px; margin-bottom:10px; box-sizing: border-box;"><br>
+        <textarea name="content" placeholder="Write your thoughts..." rows="5" required style="width:100%; padding:10px; margin-bottom:10px; box-sizing: border-box;"></textarea><br>
+        
+        <label style="display:block; margin-bottom:10px; font-weight:bold; color:#555;">Upload Image or Video (Optional):</label>
+        <input type="file" name="media" accept="image/*,video/*" style="margin-bottom:15px;"><br>
+        
+        <button type="submit" style="background:#28a745; color:white; border:none; padding:10px 20px; cursor:pointer;">Publish Post</button>
+    </form>
+
+    <h3>Feed</h3>
+    <% if (posts.length === 0) { %>
+        <p style="color: #666;">No posts published yet.</p>
+    <% } else { %>
+        <% posts.forEach(post => { %>
+            <div style="border: 1px solid #eee; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                <h4><a href="/posts/<%= post._id %>" style="color:#0052cc; text-decoration:none; font-size: 1.3em;"><%= post.title %> &rarr;</a></h4>
+                <p style="color:#666; font-size:0.85em;">By: <%= post.author.username %> | <%= new Date(post.createdAt).toDateString() %></p>
+                
+                <% if(post.author._id === userId) { %>
+                    <form action="/posts/<%= post._id %>/delete" method="POST" style="display:inline;">
+                        <button type="submit" style="color:red; background:none; border:none; cursor:pointer; padding:0; font-size: 0.9em;">Delete Post</button>
+                    </form>
+                <% } %>
+            </div>
+        <% }) %>
+    <% } %>
+</body>
+</html>
